@@ -19,7 +19,9 @@ app.get('/age-distribution-by-year', async (req, res) => {
     const gender = req.query.gender || '';
     const region = req.query.region || '';
     let query = '';
+    console.log("queryType",queryType);
     if (queryType<=2023){
+      console.log("queryType-",queryType);
       if( gender!=='' && region!=='')
         {
         query = `
@@ -59,6 +61,7 @@ app.get('/age-distribution-by-year', async (req, res) => {
       }
     }
     else if (queryType==2024 || queryType==2030){
+      console.log("queryType+",queryType);
       if( gender!=='' && region!=='')
         {
         query = `
@@ -68,6 +71,7 @@ app.get('/age-distribution-by-year', async (req, res) => {
           GROUP BY age_group
           ORDER BY age_group
         `;
+        console.log("query",query);
       }
       else if( gender==='' && region!==''){
         query = `
@@ -77,6 +81,8 @@ app.get('/age-distribution-by-year', async (req, res) => {
           GROUP BY age_group
           ORDER BY age_group
         `;
+        console.log("query",query);
+
       }
       else if( gender!=='' && region===''){
         query = `
@@ -86,6 +92,7 @@ app.get('/age-distribution-by-year', async (req, res) => {
           GROUP BY age_group
           ORDER BY age_group
         `;
+        console.log("query",query);
       }
       else if( gender==='' && region===''){
         query = `
@@ -94,6 +101,7 @@ app.get('/age-distribution-by-year', async (req, res) => {
           GROUP BY age_group
           ORDER BY age_group
         `;
+        console.log("query",query);
       }
     }
 
@@ -112,10 +120,6 @@ app.get('/age-distribution-by-year', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
